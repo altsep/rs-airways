@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, delay, of } from 'rxjs';
 
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { AuthService } from '../../../services/auth.service';
 import { LoginRequest } from '../../../models/requests.models';
 
@@ -15,8 +16,12 @@ interface LoginForm {
   templateUrl: './login-tab.component.html',
   styleUrls: ['./login-tab.component.scss'],
 })
-export class LoginTabComponent {
+export class LoginTabComponent implements OnInit {
   public form: FormGroup<LoginForm>;
+
+  public socialUser!: SocialUser;
+
+  public isLoggedin = false;
 
   public hidePassword = true;
 
@@ -24,10 +29,17 @@ export class LoginTabComponent {
 
   @Output() public closeModal = new EventEmitter<void>();
 
-  constructor(fb: FormBuilder, private authService: AuthService) {
+  constructor(fb: FormBuilder, private authService: AuthService, private socialAuthService: SocialAuthService) {
     this.form = fb.group({
       email: new FormControl('', [Validators.maxLength(16)]),
       password: new FormControl('', [Validators.maxLength(32)]),
+    });
+  }
+
+  public ngOnInit(): void {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.socialUser = user;
+      console.log(user);
     });
   }
 
@@ -46,5 +58,9 @@ export class LoginTabComponent {
         this.isLoading$.next(false);
         this.close();
       });
+  }
+
+  public async loginWithGoogle(): Promise<void> {
+    await this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 }

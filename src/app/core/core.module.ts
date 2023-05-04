@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { SharedModule } from '../shared/shared.module';
 import { AuthComponent } from './components/auth/auth.component';
 import { LoginTabComponent } from './components/auth/login-tab/login-tab.component';
@@ -31,7 +33,7 @@ import { SignInComponent } from './components/header/sign-in/sign-in.component';
     LoginTabComponent,
     SignupTabComponent,
   ],
-  imports: [CommonModule, SharedModule, ReactiveFormsModule],
+  imports: [CommonModule, SharedModule, ReactiveFormsModule, AngularFireModule, AngularFireAuthModule],
   exports: [HeaderComponent, FooterComponent],
 })
 export class CoreModule {}
