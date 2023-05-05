@@ -42,10 +42,9 @@ export class LoginTabComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    // console.log('9999', this.isLoggedin);
     this.socialAuth.authState.subscribe((user) => {
       this.socialUser = user;
-      console.log('->', user);
+      this.authService.login({ email: user.email, password: user.id });
     });
   }
 
@@ -64,39 +63,5 @@ export class LoginTabComponent implements OnInit {
         this.isLoading$.next(false);
         this.close();
       });
-  }
-
-  public loginWithGoogle(): void {
-    console.log(this.socialAuth);
-    console.log(this.socialAuth.initState);
-    this.socialAuth
-      .signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then((a) => {
-        console.log('mnnm', a);
-      })
-      .catch((a) => {
-        console.log('error', a);
-      })
-      .finally(() => {
-        console.log('finish');
-      });
-    // console.log(`login google ${this.socialUser.firstName}`);
-  }
-
-  public loginWithFacebook(): void {
-    console.log(this.socialAuth);
-    console.log(this.socialAuth.initState);
-    this.socialAuth
-      .signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then((a) => {
-        console.log('mnnm', a);
-      })
-      .catch((a) => {
-        console.log('error', a);
-      })
-      .finally(() => {
-        console.log('finish');
-      });
-    // console.log(`login google ${this.socialUser.firstName}`);
   }
 }

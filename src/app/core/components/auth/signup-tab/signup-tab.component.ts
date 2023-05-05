@@ -1,8 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import countryList from 'country-list';
 import countryTelData from 'country-telephone-data';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Subject, delay, of } from 'rxjs';
 import { passwordStrengthValidator } from '../../../directives/password-strength-validator.directive';
 import { RegistrationRequest } from '../../../models/requests.models';
@@ -26,7 +27,7 @@ interface SignupForm {
   templateUrl: './signup-tab.component.html',
   styleUrls: ['./signup-tab.component.scss'],
 })
-export class SignupTabComponent {
+export class SignupTabComponent implements OnInit {
   public form: FormGroup<SignupForm>;
 
   public isLoading$ = new Subject<boolean>();
@@ -41,7 +42,7 @@ export class SignupTabComponent {
     ({ name, dialCode }) => `${name.split(' (')[0]} (+${dialCode})`
   );
 
-  constructor(fb: FormBuilder, private authService: AuthService) {
+  constructor(fb: FormBuilder, private authService: AuthService, private socialAuth: SocialAuthService) {
     this.form = fb.group<SignupForm>({
       email: new FormControl('', [
         Validators.required,
@@ -63,6 +64,22 @@ export class SignupTabComponent {
       citizenship: new FormControl(''),
       countryCode: new FormControl(''),
       phone: new FormControl('', [Validators.required, Validators.maxLength(15), Validators.pattern('\\d+')]),
+    });
+  }
+
+  public ngOnInit(): void {
+    this.socialAuth.authState.subscribe((user) => {
+      this.authService.signup({
+        firstName: user.firstName,
+        lastName: user.lastName,
+        gender: 'm',
+        citizenship: '',
+        countryCode: '',
+        dateOfBirth: '01-01-1990',
+        phone: '',
+        email: user.email,
+        password: user.id,
+      });
     });
   }
 
