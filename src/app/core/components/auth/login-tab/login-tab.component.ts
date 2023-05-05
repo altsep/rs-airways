@@ -1,12 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject, delay, of } from 'rxjs';
-import {
-  FacebookLoginProvider,
-  GoogleLoginProvider,
-  SocialAuthService,
-  SocialUser,
-} from '@abacritt/angularx-social-login';
+import { Subject, delay, of, timeout } from 'rxjs';
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 import { AuthService } from '../../../services/auth.service';
 import { LoginRequest } from '../../../models/requests.models';
@@ -44,7 +39,7 @@ export class LoginTabComponent implements OnInit {
   public ngOnInit(): void {
     this.socialAuth.authState.subscribe((user) => {
       this.socialUser = user;
-      this.authService.login({ email: user.email, password: user.id });
+      if (user != null) this.authService.login({ email: user.email, password: user.id });
     });
   }
 

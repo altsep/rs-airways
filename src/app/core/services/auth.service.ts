@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -69,7 +69,7 @@ export class AuthService {
       this.snackBar.open('Incorrect credentials', 'Close', {
         duration: 3000,
       });
-
+      // if ((error as HttpErrorResponse).error?.message === 'User is alrady exists') return of(null);
       return of(result as T);
     };
   }

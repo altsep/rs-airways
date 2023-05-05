@@ -7,7 +7,6 @@ import {
   FacebookLoginProvider,
   GoogleLoginProvider,
   GoogleSigninButtonModule,
-  SocialLoginModule,
   GoogleSigninButtonDirective,
 } from '@abacritt/angularx-social-login';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -54,7 +53,7 @@ import { SignInComponent } from './components/header/sign-in/sign-in.component';
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: false,
+        autoLogin: true,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
@@ -62,10 +61,10 @@ import { SignInComponent } from './components/header/sign-in/sign-in.component';
               '778511620842-1g8ejbdckc3kp01fj6n9j8f83got24ih.apps.googleusercontent.com'
             ),
           },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('1406409686584496'),
-          },
+          // {
+          //   id: FacebookLoginProvider.PROVIDER_ID,
+          //   provider: new FacebookLoginProvider('1406409686584496'),
+          // },
         ],
         onError: (err) => {},
       } as SocialAuthServiceConfig,

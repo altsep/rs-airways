@@ -69,17 +69,18 @@ export class SignupTabComponent implements OnInit {
 
   public ngOnInit(): void {
     this.socialAuth.authState.subscribe((user) => {
-      this.authService.signup({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        gender: 'm',
-        citizenship: '',
-        countryCode: '',
-        dateOfBirth: '01-01-1990',
-        phone: '',
-        email: user.email,
-        password: user.id,
-      });
+      if (user != null)
+        this.authService.signup({
+          firstName: user.firstName,
+          lastName: user.lastName,
+          gender: 'm',
+          citizenship: '',
+          countryCode: '',
+          dateOfBirth: '01-01-1990',
+          phone: '',
+          email: user.email,
+          password: user.id,
+        });
     });
   }
 
