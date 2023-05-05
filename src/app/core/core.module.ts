@@ -2,6 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import {
+  SocialAuthServiceConfig,
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  GoogleSigninButtonModule,
+  SocialLoginModule,
+  GoogleSigninButtonDirective,
+} from '@abacritt/angularx-social-login';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { SharedModule } from '../shared/shared.module';
@@ -33,7 +41,15 @@ import { SignInComponent } from './components/header/sign-in/sign-in.component';
     LoginTabComponent,
     SignupTabComponent,
   ],
-  imports: [CommonModule, SharedModule, ReactiveFormsModule, AngularFireModule, AngularFireAuthModule],
+  imports: [
+    CommonModule,
+    SharedModule,
+    ReactiveFormsModule,
+    AngularFireModule,
+    AngularFireAuthModule,
+    GoogleSigninButtonModule,
+  ],
+  providers: [],
   exports: [HeaderComponent, FooterComponent],
 })
 export class CoreModule {}

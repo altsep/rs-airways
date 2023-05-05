@@ -1,10 +1,11 @@
 <div class="social-network-buttons flex flex-col gap-4 mt-9 mb-8">
-  <button class="btn" mat-stroked-button (click)="loginWithGoogle()">
+  <button class="btn" mat-stroked-button (click)="loginWithGoogle()" GoogleSigninButtonDirective>
     <div class="btn-label flex gap-2">
       <img src="/assets/google_icon.svg" alt="" />
       <span>Continue with Google</span>
     </div>
   </button>
+  <asl-google-signin-button type="icon" size="large" class="btn"></asl-google-signin-button>
   <button class="btn" mat-stroked-button>
     <div class="btn-label flex gap-2">
       <img src="/assets/facebook_icon.svg" alt="" />

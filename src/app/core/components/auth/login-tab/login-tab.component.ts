@@ -1,8 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject, delay, of } from 'rxjs';
+import {
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from '@abacritt/angularx-social-login';
 
-import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { AuthService } from '../../../services/auth.service';
 import { LoginRequest } from '../../../models/requests.models';
 
@@ -29,7 +34,7 @@ export class LoginTabComponent implements OnInit {
 
   @Output() public closeModal = new EventEmitter<void>();
 
-  constructor(fb: FormBuilder, private authService: AuthService, private socialAuthService: SocialAuthService) {
+  constructor(fb: FormBuilder, private authService: AuthService, private socialAuth: SocialAuthService) {
     this.form = fb.group({
       email: new FormControl('', [Validators.maxLength(16)]),
       password: new FormControl('', [Validators.maxLength(32)]),
@@ -37,9 +42,10 @@ export class LoginTabComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.socialAuthService.authState.subscribe((user) => {
+    // console.log('9999', this.isLoggedin);
+    this.socialAuth.authState.subscribe((user) => {
       this.socialUser = user;
-      console.log(user);
+      console.log('->', user);
     });
   }
 
@@ -60,7 +66,37 @@ export class LoginTabComponent implements OnInit {
       });
   }
 
-  public async loginWithGoogle(): Promise<void> {
-    await this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  public loginWithGoogle(): void {
+    console.log(this.socialAuth);
+    console.log(this.socialAuth.initState);
+    this.socialAuth
+      .signIn(GoogleLoginProvider.PROVIDER_ID)
+      .then((a) => {
+        console.log('mnnm', a);
+      })
+      .catch((a) => {
+        console.log('error', a);
+      })
+      .finally(() => {
+        console.log('finish');
+      });
+    // console.log(`login google ${this.socialUser.firstName}`);
+  }
+
+  public loginWithFacebook(): void {
+    console.log(this.socialAuth);
+    console.log(this.socialAuth.initState);
+    this.socialAuth
+      .signIn(FacebookLoginProvider.PROVIDER_ID)
+      .then((a) => {
+        console.log('mnnm', a);
+      })
+      .catch((a) => {
+        console.log('error', a);
+      })
+      .finally(() => {
+        console.log('finish');
+      });
+    // console.log(`login google ${this.socialUser.firstName}`);
   }
 }
