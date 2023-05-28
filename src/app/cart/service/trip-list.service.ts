@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { PriceService } from '../../shared/services/price.service';
 import { ITrip } from '../../booking/interfaces/flight';
-import { CurrencyCode, Prices } from '../../shared/models/flight-search.interfaces';
+import { Prices } from '../../shared/models/flight-search.interfaces';
 
 @Injectable({
   providedIn: 'root',

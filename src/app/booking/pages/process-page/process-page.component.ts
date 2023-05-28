@@ -27,7 +27,6 @@ export class ProcessPageComponent implements OnDestroy {
 
   constructor(private progress: PassengersService, private summary: SummaryService, private tripList: TripListService) {
     this.trip = summary.getSummary() as ITrip;
-    console.log(this.trip);
   }
 
   public ngOnDestroy(): void {

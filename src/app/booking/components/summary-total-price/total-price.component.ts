@@ -2,10 +2,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { SummaryService } from '../../services/summary.service';
 import { CurrencySymbolService } from '../../services/currency-symbol.service';
-import { ISummaryFare, ISummaryLang, ISummaryTrip, ITrip } from '../../interfaces/flight';
-import { IPassenger } from '../../interfaces/passenger';
+import { ISummaryFare, ISummaryLang, ITrip } from '../../interfaces/flight';
 import { PriceService } from '../../../shared/services/price.service';
-import { CurrencyCode, Prices } from '../../../shared/models/flight-search.interfaces';
+import { CurrencyCode } from '../../../shared/models/flight-search.interfaces';
 
 @Component({
   selector: 'app-total-price',

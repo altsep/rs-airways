@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { IPassenger } from '../interfaces/passenger';
 import { ISummaryFare, ITrip } from '../interfaces/flight';
-import { Prices } from '../../shared/models/flight-search.interfaces';
 import { PassengersService } from './passengers.service';
 import { PriceService } from '../../shared/services/price.service';
 
@@ -51,7 +50,6 @@ export class SummaryService {
         };
       }
     });
-    console.log(result);
 
     return result;
   }

@@ -16,7 +16,7 @@ import { SHOPPING_CART_COLUMNS } from '../../interfaces/columns';
 import { PassengersListService } from '../../service/passengers-list.service';
 import { TripListService } from '../../service/trip-list.service';
 import { PriceService } from '../../../shared/services/price.service';
-import { CurrencyCode, Prices } from '../../../shared/models/flight-search.interfaces';
+import { CurrencyCode } from '../../../shared/models/flight-search.interfaces';
 
 @Component({
   selector: 'app-cart',
