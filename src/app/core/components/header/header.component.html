@@ -1,0 +1,37 @@
+<mat-toolbar class="header sticky top-0 justify-center z-20">
+  <div class="content flex items-center max-w-[1128px] w-full justify-between">
+    <a routerLink="/" routerLinkActive="router-link-active" class="logo" aria-label="button with logo">
+      <img src="/assets/logo.svg" alt="logo" srcset="" />
+    </a>
+
+    <div class="controls flex items-center">
+      <ng-container *ngIf="(mainPage | async) === true; else progressIndicator">
+        <span class="spacer flex-auto"></span>
+        <app-booking />
+      </ng-container>
+
+      <app-date-format-selector />
+
+      <app-currency-menu />
+
+      <ng-container *ngIf="(loggedIn$ | async) !== true; else account">
+        <app-sign-in [authModalActive]="authModalActive" (authDisplay)="authModalActive = $event" />
+      </ng-container>
+
+      <app-cart />
+
+      <app-change-language />
+    </div>
+  </div>
+</mat-toolbar>
+
+<app-auth *ngIf="authModalActive" (closeModal)="authModalActive = false" />
+
+<ng-template #progressIndicator>
+  <span class="spacer flex-auto lg:hidden"></span>
+  <app-progress-indicator />
+</ng-template>
+
+<ng-template #account>
+  <app-account />
+</ng-template>

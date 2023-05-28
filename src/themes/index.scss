@@ -1,0 +1,15 @@
+@use '@angular/material' as mat;
+@use 'default' as default;
+
+@include mat.core();
+
+@mixin shadow() {
+  background: rgba(206, 206, 206, 0.11);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+}
+
+@include mat.button-theme(default.$rs-airline-theme);
+@include mat.icon-theme(default.$rs-airline-theme);
+@include mat.progress-spinner-theme(default.$rs-airline-theme);
+@include mat.checkbox-theme(default.$rs-airline-theme);
